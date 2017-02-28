@@ -1,0 +1,3 @@
+# GenomeHubs example configurations
+
+
