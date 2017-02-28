@@ -1,6 +1,6 @@
 # Step-by-step GenomeHubs Mirror Setup Part I
 
-View [this tutorial](genomehubs.org/documentation/mirror-setup-part-i) at genomehubs.org. 
+View [this tutorial](http://genomehubs.org/documentation/mirror-setup-part-i/) at genomehubs.org. 
 
 This is the simplest setup to mirror [Ensembl](http://ensembl.org)/[EnsemblGenomes](http://ensemblgenomes.org)
 species. To also set up a [SequenceServer](http://sequenceserver.com) BLAST server
