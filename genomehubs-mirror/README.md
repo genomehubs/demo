@@ -86,7 +86,7 @@ docker run -d \
 docker run -d \
            --name genomehubs-h5ai \
            -v ~/demo/genomehubs-mirror/download/conf:/conf \
-           -v ~/demo/genomehubs-mirror/download/data:/var/www \
+           -v ~/demo/genomehubs-mirror/download/data:/var/www/demo \
            -p 8082:80 \
            genomehubs/h5ai:latest
 ```
