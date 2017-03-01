@@ -15,6 +15,29 @@ to get started on a simpler version.
 ubuntu@hostname:~$ git clone https://github.com/genomehubs/demo.git
 ubuntu@hostname:~$ cd demo/genomehubs-mirror
 ubuntu@hostname:~$ tree
+.
+├── blast
+│   ├── conf
+│   │   ├── links.rb
+│   │   └── sequenceserver.conf
+│   └── data
+├── download
+│   ├── conf
+│   │   └── _h5ai.headers.html
+│   └── data
+├── ensembl
+│   ├── conf
+│   │   ├── database.ini
+│   │   └── setup.ini
+│   ├── gh-conf
+│   │   └── setup.ini
+│   └── logs
+├── import
+│   ├── conf
+│   └── data
+├── mysql
+│   └── data
+└── README.md
 ```
 
 ## Docker containers
