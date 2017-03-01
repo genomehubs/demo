@@ -70,7 +70,7 @@ docker run -d \
 ```
 docker run -d \
            --name easy-import-bombyx_mori_core_32_85_1 \
-           --link example-mysql \
+           --link genomehubs-mysql \
            -v ~/demo/genomehubs-mirror/import/conf:/import/conf \
            -v ~/demo/genomehubs-mirror/import/data:/import/data \
            -v ~/demo/genomehubs-mirror/download/data:/import/download \
