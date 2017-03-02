@@ -44,7 +44,7 @@ module SequenceServer
     def genomehubs
       taxa = {}
 
-      taxa["bombyx_mori_core_32_85_1"] = "Bombyx_mori"
+      taxa["melitaea_cinxia_core_32_85_1"] = "Melitaea_cinxia"
 
 
       if id.match(ID_PATTERN)
@@ -58,7 +58,7 @@ module SequenceServer
 
       accession = encode accession
       colon = ':'
-      url = "http://ensembl.demo.genomehubs.org/#{assembly}"
+      url = "http://127.0.0.1:8081/#{assembly}"
       if type == 'protein' || type == 'aa'
         url = "#{url}/Transcript/ProteinSummary?db=core;p=#{accession}"
       elsif type == 'cds' || type == 'transcript'
