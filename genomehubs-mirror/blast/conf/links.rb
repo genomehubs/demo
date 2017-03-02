@@ -47,11 +47,7 @@ module SequenceServer
       taxa["bombyx_mori_core_32_85_1"] = "Bombyx_mori"
 
 
-      if title.match(TITLE_PATTERN)
-        assembly = Regexp.last_match[1]
-        type = Regexp.last_match[2]
-        accession = id
-      elsif id.match(ID_PATTERN)
+      if id.match(ID_PATTERN)
         assembly = Regexp.last_match[1]
         type = Regexp.last_match[2]
         accession = Regexp.last_match[3]
