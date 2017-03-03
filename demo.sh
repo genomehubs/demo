@@ -40,7 +40,7 @@ docker run --rm \
            -v ~/demo/genomehubs-mirror/download/data:/import/download \
            -v ~/demo/genomehubs-mirror/blast/data:/import/blast \
            -e DATABASE=melitaea_cinxia_core_32_85_1 \
-           -e FLAGS="-e" \
+           -e FLAGS="-e -i -j" \
            genomehubs/easy-import:latest &&
 
 ls ~/demo/genomehubs-mirror/download/data/sequence 2> /dev/null &&
