@@ -14,7 +14,6 @@ echo Step 1. Set up mySQL container
 
 docker run -d \
            --name genomehubs-mysql \
-           -v ~/demo/genomehubs-mirror/mysql/data:/var/lib/mysql \
            -e MYSQL_ROOT_PASSWORD=rootuserpassword \
            -e MYSQL_ROOT_HOST='172.17.0.0/255.255.0.0' \
            mysql/mysql-server:5.5
