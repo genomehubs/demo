@@ -16,11 +16,11 @@ docker run -d \
            --name genomehubs-mysql \
            -e MYSQL_ROOT_PASSWORD=rootuserpassword \
            -e MYSQL_ROOT_HOST='172.17.0.0/255.255.0.0' \
-           mysql/mysql-server:5.5
+           mysql/mysql-server:5.5 &&
 
-sleep 10
+sleep 10 &&
 
-echo Step 2. Set up databases using EasyMirror
+echo Step 2. Set up databases using EasyMirror &&
 
 docker run --rm \
            --name genomehubs-ensembl \
@@ -30,7 +30,7 @@ docker run --rm \
            -p 8081:8080 \
           genomehubs/easy-mirror:latest /ensembl/scripts/database.sh /ensembl/conf/database.ini &&
 
-echo Step 3. Export sequences, export json and index database
+echo Step 3. Export sequences, export json and index database &&
 
 docker run --rm \
            --name easy-import-melitaea_cinxia_core_32_85_1 \
@@ -40,28 +40,30 @@ docker run --rm \
            -v ~/demo/genomehubs-mirror/download/data:/import/download \
            -v ~/demo/genomehubs-mirror/blast/data:/import/blast \
            -e DATABASE=melitaea_cinxia_core_32_85_1 \
-           -e FLAGS="-e -j -i" \
-           easy-import &&
+           -e FLAGS="-e" \
+           genomehubs/easy-import:latest &&
 
-echo Step 4. Startup h5ai downloads server
+ls ~/demo/genomehubs-mirror/download/data/sequence 2> /dev/null &&
+
+echo Step 4. Startup h5ai downloads server &&
 
 docker run -d \
            --name genomehubs-h5ai \
            -v ~/demo/genomehubs-mirror/download/conf:/conf \
            -v ~/demo/genomehubs-mirror/download/data:/var/www/demo \
            -p 8082:8080 \
-           genomehubs/h5ai:latest
+           genomehubs/h5ai:latest &&
 
-echo Step 5. Startup SequenceServer BLAST server
+echo Step 5. Startup SequenceServer BLAST server &&
 
 docker run -d \
            --name genomehubs-sequenceserver \
            -v ~/demo/genomehubs-mirror/blast/conf:/conf \
            -v ~/demo/genomehubs-mirror/blast/data:/dbs \
            -p 8083:4567 \
-           genomehubs/sequenceserver:latest
+           genomehubs/sequenceserver:latest &&
 
-echo Step 6. Startup GenomeHubs Ensembl mirror
+echo Step 6. Startup GenomeHubs Ensembl mirror &&
 
 docker run -d \
            --name genomehubs-ensembl \
@@ -69,15 +71,24 @@ docker run -d \
            -v ~/demo/genomehubs-mirror/ensembl/logs:/ensembl/logs \
            --link genomehubs-mysql \
            -p 8081:8080 \
-           genomehubs/easy-mirror:latest
+           genomehubs/easy-mirror:latest &&
 
-echo Step 7. Waiting for site to load
+echo Step 7. Waiting for site to load &&
 
 until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:8081//i/placeholder.png); do
     printf '.'
     sleep 5
-done
+done &&
 
-echo done
+echo done &&
 
-echo Visit your mirror site at 127.0.0.1:8081
+echo Visit your mirror site at 127.0.0.1:8081 &&
+
+exit
+
+echo Unable to set up GenomeHubs mirror, removing containers
+
+docker stop genomehubs-mysql && docker rm genomehubs-mysql
+docker stop genomehubs-ensembl && docker rm genomehubs-ensembl
+docker stop genomehubs-h5ai && docker rm genomehubs-h5ai
+docker stop genomehubs-sequenceserver && docker rm genomehubs-sequenceserver
