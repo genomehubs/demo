@@ -8,6 +8,9 @@
 # git clone https://github.com/genomehubs/demo
 # cd demo
 # ./demo.sh
+#
+# Prerequisites:
+# Requires Docker and assumes UID 1000
 # ============================================================================
 
 echo Step 1. Set up mySQL container
