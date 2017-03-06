@@ -28,3 +28,7 @@ possible.
   due to running the scripts as a user with a UID other than 1000. There are work arounds for this
   but we are unable to support problems caused by incompatible users/permissions. Try again on a
   server/vm wher you are able to run Docker as UID 1000.
+
+- If you are not running Docker on a local machine and are unable to access the site on 127.0.0.1:8081,
+  try following [these suggestions](http://genomehubs.org/documentation/mirror-setup-part-ii/#visit-site)
+  to access the site.
