@@ -31,7 +31,7 @@ docker run --rm \
            -v ~/demo/genomehubs-import/ensembl/logs:/ensembl/logs \
            --link genomehubs-mysql \
            -p 8081:8080 \
-          genomehubs/easy-mirror:latest /ensembl/scripts/database.sh /ensembl/conf/database.ini &&
+          genomehubs/easy-mirror:17.03 /ensembl/scripts/database.sh /ensembl/conf/database.ini &&
 
 echo Step 3. Import sequences, prepare gff and import gene models &&
 
@@ -44,7 +44,7 @@ docker run --rm \
            -v ~/demo/genomehubs-import/blast/data:/import/blast \
            -e DATABASE=operophtera_brumata_v1_core_32_85_1 \
            -e FLAGS="-s -p -g" \
-           genomehubs/easy-import:latest &&
+           genomehubs/easy-import:17.03 &&
 
 echo Step 4. Export sequences, export json and index database for imported Operophtera brumata &&
 
@@ -57,7 +57,7 @@ docker run --rm \
            -v ~/demo/genomehubs-import/blast/data:/import/blast \
            -e DATABASE=operophtera_brumata_v1_core_32_85_1 \
            -e FLAGS="-e -j -i" \
-           genomehubs/easy-import:latest &&
+           genomehubs/easy-import:17.03 &&
 
 ls ~/demo/genomehubs-import/download/data/sequence/Operophtera* 2> /dev/null &&
 
@@ -66,13 +66,13 @@ echo Step 5. Export sequences, export json and index database for mirrored Melit
 docker run --rm \
            --name easy-import-melitaea_cinxia_core_32_85_1 \
            --link genomehubs-mysql \
-           -v ~/demo/genomehubs-mirror/import/conf:/import/conf \
-           -v ~/demo/genomehubs-mirror/import/data:/import/data \
-           -v ~/demo/genomehubs-mirror/download/data:/import/download \
-           -v ~/demo/genomehubs-mirror/blast/data:/import/blast \
+           -v ~/demo/genomehubs-import/import/conf:/import/conf \
+           -v ~/demo/genomehubs-import/import/data:/import/data \
+           -v ~/demo/genomehubs-import/download/data:/import/download \
+           -v ~/demo/genomehubs-import/blast/data:/import/blast \
            -e DATABASE=melitaea_cinxia_core_32_85_1 \
            -e FLAGS="-e -i -j" \
-           genomehubs/easy-import:latest &&
+           genomehubs/easy-import:17.03 &&
 
 ls ~/demo/genomehubs-mirror/download/data/sequence/Melitaea* 2> /dev/null &&
 
@@ -83,7 +83,7 @@ docker run -d \
            -v ~/demo/genomehubs-import/download/conf:/conf \
            -v ~/demo/genomehubs-import/download/data:/var/www/demo \
            -p 8082:8080 \
-           genomehubs/h5ai:latest &&
+           genomehubs/h5ai:17.03 &&
 
 echo Step 7. Startup SequenceServer BLAST server &&
 
@@ -92,7 +92,7 @@ docker run -d \
            -v ~/demo/genomehubs-import/blast/conf:/conf \
            -v ~/demo/genomehubs-import/blast/data:/dbs \
            -p 8083:4567 \
-           genomehubs/sequenceserver:latest &&
+           genomehubs/sequenceserver:17.03 &&
 
 echo Step 8. Startup GenomeHubs Ensembl mirror &&
 
@@ -102,7 +102,7 @@ docker run -d \
            -v ~/demo/genomehubs-import/ensembl/logs:/ensembl/logs \
            --link genomehubs-mysql \
            -p 8081:8080 \
-           genomehubs/easy-mirror:latest &&
+           genomehubs/easy-mirror:17.03 &&
 
 echo Step 9. Waiting for site to load &&
 

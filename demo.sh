@@ -31,7 +31,7 @@ docker run --rm \
            -v ~/demo/genomehubs-mirror/ensembl/logs:/ensembl/logs \
            --link genomehubs-mysql \
            -p 8081:8080 \
-          genomehubs/easy-mirror:latest /ensembl/scripts/database.sh /ensembl/conf/database.ini &&
+          genomehubs/easy-mirror:17.03 /ensembl/scripts/database.sh /ensembl/conf/database.ini &&
 
 echo Step 3. Export sequences, export json and index database &&
 
@@ -44,7 +44,7 @@ docker run --rm \
            -v ~/demo/genomehubs-mirror/blast/data:/import/blast \
            -e DATABASE=melitaea_cinxia_core_32_85_1 \
            -e FLAGS="-e -i -j" \
-           genomehubs/easy-import:latest &&
+           genomehubs/easy-import:17.03 &&
 
 ls ~/demo/genomehubs-mirror/download/data/sequence 2> /dev/null &&
 
@@ -55,7 +55,7 @@ docker run -d \
            -v ~/demo/genomehubs-mirror/download/conf:/conf \
            -v ~/demo/genomehubs-mirror/download/data:/var/www/demo \
            -p 8082:8080 \
-           genomehubs/h5ai:latest &&
+           genomehubs/h5ai:17.03 &&
 
 echo Step 5. Startup SequenceServer BLAST server &&
 
@@ -64,7 +64,7 @@ docker run -d \
            -v ~/demo/genomehubs-mirror/blast/conf:/conf \
            -v ~/demo/genomehubs-mirror/blast/data:/dbs \
            -p 8083:4567 \
-           genomehubs/sequenceserver:latest &&
+           genomehubs/sequenceserver:17.03 &&
 
 echo Step 6. Startup GenomeHubs Ensembl mirror &&
 
@@ -74,7 +74,7 @@ docker run -d \
            -v ~/demo/genomehubs-mirror/ensembl/logs:/ensembl/logs \
            --link genomehubs-mysql \
            -p 8081:8080 \
-           genomehubs/easy-mirror:latest &&
+           genomehubs/easy-mirror:17.03 &&
 
 echo Step 7. Waiting for site to load &&
 
