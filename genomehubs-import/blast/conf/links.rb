@@ -44,6 +44,7 @@ module SequenceServer
     def genomehubs
       taxa = {}
 
+      taxa["melitaea_cinxia_core_32_85_1"] = "Melitaea_cinxia"
       taxa["operophtera_brumata_v1_core_32_85_1"] = "Operophtera_brumata_v1"
 
 
