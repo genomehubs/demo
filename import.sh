@@ -74,7 +74,7 @@ docker run --rm \
            -e FLAGS="-e -i -j" \
            genomehubs/easy-import:17.03 &&
 
-ls ~/demo/genomehubs-mirror/download/data/sequence/Melitaea* 2> /dev/null &&
+ls ~/demo/genomehubs-import/download/data/sequence/Melitaea* 2> /dev/null &&
 
 echo Step 6. Startup h5ai downloads server &&
 
