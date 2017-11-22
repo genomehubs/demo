@@ -25,9 +25,11 @@ sleep 10 &&
 
 echo Step 2. Set up template database using EasyMirror &&
 
+INSTALL_DIR=$(pwd)
+
 docker run --rm \
            --name genomehubs-ensembl \
-           -v ~/demo/genomehubs-import/ensembl/conf:/ensembl/conf:ro \
+           -v $INSTALL_DIR/genomehubs-import/ensembl/conf:/ensembl/conf:ro \
            --link genomehubs-mysql \
            -p 8081:8080 \
           genomehubs/easy-mirror:17.03.23 /ensembl/scripts/database.sh /ensembl/conf/database.ini &&
@@ -38,8 +40,8 @@ docker run --rm \
            -u $UID:$GROUPS \
            --name easy-import-operophtera_brumata_v1_core_32_85_1 \
            --link genomehubs-mysql \
-           -v ~/demo/genomehubs-import/import/conf:/import/conf \
-           -v ~/demo/genomehubs-import/import/data:/import/data \
+           -v $INSTALL_DIR/genomehubs-import/import/conf:/import/conf \
+           -v $INSTALL_DIR/genomehubs-import/import/data:/import/data \
            -e DATABASE=operophtera_brumata_v1_core_32_85_1 \
            -e FLAGS="-s -p -g" \
            genomehubs/easy-import:17.03.23 &&
@@ -50,15 +52,15 @@ docker run --rm \
            -u $UID:$GROUPS \
            --name easy-import-operophtera_brumata_v1_core_32_85_1 \
            --link genomehubs-mysql \
-           -v ~/demo/genomehubs-import/import/conf:/import/conf \
-           -v ~/demo/genomehubs-import/import/data:/import/data \
-           -v ~/demo/genomehubs-import/download/data:/import/download \
-           -v ~/demo/genomehubs-import/blast/data:/import/blast \
+           -v $INSTALL_DIR/genomehubs-import/import/conf:/import/conf \
+           -v $INSTALL_DIR/genomehubs-import/import/data:/import/data \
+           -v $INSTALL_DIR/genomehubs-import/download/data:/import/download \
+           -v $INSTALL_DIR/genomehubs-import/blast/data:/import/blast \
            -e DATABASE=operophtera_brumata_v1_core_32_85_1 \
            -e FLAGS="-e -j -i" \
            genomehubs/easy-import:17.03.23 &&
 
-ls ~/demo/genomehubs-import/download/data/sequence/Operophtera* 2> /dev/null &&
+ls $INSTALL_DIR/genomehubs-import/download/data/sequence/Operophtera* 2> /dev/null &&
 
 echo Step 5. Export sequences, export json and index database for mirrored Melitaea cinxia &&
 
@@ -66,22 +68,22 @@ docker run --rm \
            -u $UID:$GROUPS \
            --name easy-import-melitaea_cinxia_core_32_85_1 \
            --link genomehubs-mysql \
-           -v ~/demo/genomehubs-import/import/conf:/import/conf \
-           -v ~/demo/genomehubs-import/import/data:/import/data \
-           -v ~/demo/genomehubs-import/download/data:/import/download \
-           -v ~/demo/genomehubs-import/blast/data:/import/blast \
+           -v $INSTALL_DIR/genomehubs-import/import/conf:/import/conf \
+           -v $INSTALL_DIR/genomehubs-import/import/data:/import/data \
+           -v $INSTALL_DIR/genomehubs-import/download/data:/import/download \
+           -v $INSTALL_DIR/genomehubs-import/blast/data:/import/blast \
            -e DATABASE=melitaea_cinxia_core_32_85_1 \
            -e FLAGS="-e -i -j" \
            genomehubs/easy-import:17.03.23 &&
 
-ls ~/demo/genomehubs-import/download/data/sequence/Melitaea* 2> /dev/null &&
+ls $INSTALL_DIR/genomehubs-import/download/data/sequence/Melitaea* 2> /dev/null &&
 
 echo Step 6. Startup h5ai downloads server &&
 
 docker run -d \
            --name genomehubs-h5ai \
-           -v ~/demo/genomehubs-import/download/conf:/conf \
-           -v ~/demo/genomehubs-import/download/data:/var/www/demo \
+           -v $INSTALL_DIR/genomehubs-import/download/conf:/conf \
+           -v $INSTALL_DIR/genomehubs-import/download/data:/var/www/demo \
            -p 8082:8080 \
            genomehubs/h5ai:17.03 &&
 
@@ -90,8 +92,8 @@ echo Step 7. Startup SequenceServer BLAST server &&
 docker run -d \
            -u $UID:$GROUPS \
            --name genomehubs-sequenceserver \
-           -v ~/demo/genomehubs-import/blast/conf:/conf \
-           -v ~/demo/genomehubs-import/blast/data:/dbs \
+           -v $INSTALL_DIR/genomehubs-import/blast/conf:/conf \
+           -v $INSTALL_DIR/genomehubs-import/blast/data:/dbs \
            -p 8083:4567 \
            genomehubs/sequenceserver:17.03.23 &&
 
@@ -99,7 +101,7 @@ echo Step 8. Startup GenomeHubs Ensembl mirror &&
 
 docker run -d \
            --name genomehubs-ensembl \
-           -v ~/demo/genomehubs-import/ensembl/gh-conf:/ensembl/conf:ro \
+           -v $INSTALL_DIR/genomehubs-import/ensembl/gh-conf:/ensembl/conf:ro \
            --link genomehubs-mysql \
            -p 8081:8080 \
            genomehubs/easy-mirror:17.03.23 &&
