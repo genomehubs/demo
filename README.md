@@ -8,7 +8,7 @@ Example configurations to set up custom [Ensembl](http://ensembl.org) sites usin
 - [GenomeHubs import](genomehubs-import) - a full GenomeHubs site hosting the
   an assembly and gene models imported from FASTA + GFF
 
-Either follow the full tutorials at [genomehubs.org](http://genomehubs.org/documentation/) or
+Either follow the full tutorials at [genomehubs.gitbooks.io](https://genomehubs.gitbooks.io/genomehubs) or
 try out the example scripts to get a GenomeHubs Ensembl site up and running as quickly as
 possible.
 
@@ -30,5 +30,5 @@ possible.
   server/vm wher you are able to run Docker as UID 1000.
 
 - If you are not running Docker on a local machine and are unable to access the site on 127.0.0.1:8081,
-  try following [these suggestions](http://genomehubs.org/documentation/mirror-setup-part-ii/#visit-site)
+  try following [these suggestions](https://genomehubs.gitbooks.io/genomehubs/content/demo.html)
   to access the site.
