@@ -1,0 +1,51 @@
+.lb-navbar {
+  border-bottom: none;
+  background-color: #333333;
+  height: 80px;
+}
+div.lb-menu-category {
+    float: left;
+    height: 22px;
+    margin-left: 4px;
+    background-color: #fff;
+    padding: 5px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    color: #333;
+    line-height: 22px;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+a div.lb-menu-category:hover {
+    border: 2px solid #ff6699;
+}
+
+img.lb-menu-linkicon {
+    max-width: 20px;
+    max-height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.lb-tools-holder {
+  padding-top:24px;
+}
+
+.lb-logo {
+    width: 162px;
+    height: 54px;
+    margin-top: 11px;
+    margin-right: 49px;
+    margin-left:12px;
+    float: left;
+}
+
+#content-header a,
+#content-header a:visited,
+#content-footer a,
+#content-footer a:visited {
+    color: #ff6699;
+}

@@ -3,9 +3,7 @@ module SequenceServer
   module Links
     require 'erb'
 
-    # Provide a method to URL encode _query parameters_. See [1].
     include ERB::Util
-    #
     alias_method :encode, :url_encode
 
     TITLE_PATTERN = /(\S+)\s(\S+)/
@@ -14,7 +12,7 @@ module SequenceServer
     def sequence_viewer
       accession  = encode self.accession
       database_ids = encode querydb.map(&:id).join(' ')
-      url = "geet_sequence/?sequence_ids=#{accession}" \
+      url = "get_sequence/?sequence_ids=#{accession}" \
             "&database_ids=#{database_ids}"
 
       {
@@ -43,12 +41,14 @@ module SequenceServer
 
     def genomehubs
       taxa = {}
+      taxa["melitaea_cinxia_core_36_89_1"] = "Melitaea_cinxia"
+      taxa["operophtera_brumata_obru1_core_36_89_1"] = "Operophtera_brumata_obru1"
 
-      taxa["melitaea_cinxia_core_32_85_1"] = "Melitaea_cinxia"
-      taxa["operophtera_brumata_v1_core_32_85_1"] = "Operophtera_brumata_v1"
-
-
-      if id.match(ID_PATTERN)
+      if title.match(TITLE_PATTERN)
+        assembly = Regexp.last_match[1]
+        type = Regexp.last_match[2]
+        accession = id
+      elsif id.match(ID_PATTERN)
         assembly = Regexp.last_match[1]
         type = Regexp.last_match[2]
         accession = Regexp.last_match[3]
@@ -59,7 +59,7 @@ module SequenceServer
 
       accession = encode accession
       colon = ':'
-      url = "http://127.0.0.1:8081/#{assembly}"
+      url = "http://ensembl.example.com/#{assembly}"
       if type == 'protein' || type == 'aa'
         url = "#{url}/Transcript/ProteinSummary?db=core;p=#{accession}"
       elsif type == 'cds' || type == 'transcript'
@@ -79,9 +79,10 @@ module SequenceServer
         :order => 2,
         :title => 'genomehubs',
         :url   => url,
-        :icon  => 'fa-external-link'#,
+        :icon  => 'fa-external-link'
       }
     end
 
   end
 end
+
